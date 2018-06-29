@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/Sr-vZ/movie-bloom#readme",
   "dependencies": {
+    "fetch-with-proxy": "^1.1.0",
+    "https-proxy-agent": "^2.2.1",
     "node-fetch": "^2.1.2"
   }
 }
