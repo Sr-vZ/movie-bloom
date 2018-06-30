@@ -2,7 +2,7 @@ const fetch = require('node-fetch')
 // import fetch from 'fetch-with-proxy';
 
 const fs = require('fs')
-var HttpsProxyAgent = require('https-proxy-agent');
+var HttpsProxyAgent = require('https-proxy-agent')
 
 const genreUrl = 'https://api.themoviedb.org/3/genre/movie/list?api_key=9eed022e522148efdb5a1fc5d8900333&language=en-US'
 genres = [{
@@ -86,8 +86,8 @@ genres = [{
 
 function getGenres() {
     return fetch(genreUrl, {
-        method: 'get',
-        agent: new HttpsProxyAgent('http://proxy.intra.bt.com:8080')
+        method: 'get'
+        // agent: new HttpsProxyAgent('http://proxy.intra.bt.com:8080')
     }).then(response => response.json())
 }
 
@@ -100,7 +100,7 @@ function getMovieIDs(pageNo) {
 
     return fetch(url, {
             method: 'get',
-            agent: new HttpsProxyAgent('http://proxy.intra.bt.com:8080')
+            // agent: new HttpsProxyAgent('http://proxy.intra.bt.com:8080')
         })
         .then(response => response.json())
 
