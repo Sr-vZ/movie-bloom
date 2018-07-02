@@ -163,17 +163,29 @@
                         })
                         // movieData = movieData.concat(data)
                     }
+                    var html = '';
                     for (i = 0; i < data.length; i++) {
-                        var html = html + createMoviecontainer(data[i].title, data[i].img, data[i].release_date,
+                        html = html + createMoviecontainer(data[i].title, data[i].img, data[i].release_date,
                             data[i]
                             .synopsis, data[i].genres, data[i].id)
                         document.getElementById('movies-container').innerHTML = html
-                        // loadChart('canvas-' + data[i].id)
+                        loadChart('canvas-' + data[i].id)
                     }
                     console.log(data)
                 })
+                .then(() => {
+                    for (i = 0; i < data.length; i++) {
+                        loadChart('canvas-' + data[i].id,randomArray(10,100))
+                    }
+                })
         }
 
+        function randomArray(length, max) {
+            return Array.apply(null, Array(length)).map(function () {
+                return Math.round(Math.random() *
+                    max);
+            });
+        }
 
         function createMoviecontainer(title, img, release_date, synopsis, genre, id) {
 
@@ -211,7 +223,7 @@
                         // label: "My First dataset",
                         backgroundColor: 'rgb(255, 99, 132)',
                         borderColor: 'rgb(255, 99, 132)',
-                        data: [0, 10, 5, 2, 20, 30, 45, 12, 46, 77],
+                        data: data,
                     }]
                 },
 
@@ -221,10 +233,12 @@
         }
 
         $(document).ready(function () {
-            loadMovies(1)
-            for(i=0;i<data.length;i++){
-                loadChart('canvas-'+data[i].id)
-            }
+            loadMovies(1, function () {
+                for (i = 0; i < data.length; i++) {
+                    loadChart('canvas-' + data[i].id)
+                }
+            })
+
         });
     </script>
 </body>
