@@ -30,8 +30,11 @@
             </div>
         </div> -->
     </div>
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <div class="">
+        <button type="button" class="btn btn-success float-left" onclick="prevPage()">Previous</button>
+        <button type="button" class="btn btn-success float-right" onclick="nextPage()">Next</button>
+    </div>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script> -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
@@ -40,6 +43,7 @@
         crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
     <script>
+        PageNo = 1;
         genres = [{
                 id: 28,
                 name: 'Action'
@@ -142,7 +146,7 @@
                     // console.log(rdata.results.length)
 
                     // var data = []
-
+                    data = []
                     for (i = 0; i < rdata.results.length; i++) {
 
                         for (j = 0; j < rdata.results[i].genre_ids.length; j++) {
@@ -169,7 +173,7 @@
                             data[i]
                             .synopsis, data[i].genres, data[i].id)
                         document.getElementById('movies-container').innerHTML = html
-                        loadChart('canvas-' + data[i].id)
+                        // loadChart('canvas-' + data[i].id)
                     }
                     console.log(data)
                 })
@@ -189,13 +193,14 @@
 
         function createMoviecontainer(title, img, release_date, synopsis, genre, id) {
 
-            html = '<div class="row">' +
-
+            html = '<div class="row" style="padding: 20px">' +
                 '<div class="col">' +
                 '<p class="h2">' + title + '</p>' +
-                '<img src="' + img + '" class="img-fluid rounded float-left" alt="Responsive image">' +
+                '<img src="' + img + '" class="img-fluid rounded float-left " style="width: 100%" alt="Responsive image">' +
                 '</div>' +
                 '<div class="col">' +
+                '<p class="h2"> </p>' +
+                '<p></p>' +
                 '<div id="chart-container-' + id + '"><canvas id="canvas-' + id + '"></canvas></div>' +
                 '<p>Release Date: ' + release_date + '</p>' +
 
@@ -204,7 +209,7 @@
                 '<p></p>' +
                 '<p class="h4">SYNOPSIS</p>' +
                 '<p>' + synopsis + '</p>' +
-                '</div></div></div>'
+                '</div></div>'
             return html
         }
 
@@ -220,7 +225,7 @@
                         "Comedy", "Science Fiction", "Fantasy"
                     ],
                     datasets: [{
-                        // label: "My First dataset",
+                        label: "Rating",
                         backgroundColor: 'rgb(255, 99, 132)',
                         borderColor: 'rgb(255, 99, 132)',
                         data: data,
@@ -232,12 +237,20 @@
             });
         }
 
+        function nextPage() {
+            PageNo = PageNo + 1
+            loadMovies(PageNo)
+        }
+
+        function prevPage() {
+            if(PageNo!==1){
+                PageNo = PageNo-1
+                loadMovies(PageNo)
+            }
+        }
+
         $(document).ready(function () {
-            loadMovies(1, function () {
-                for (i = 0; i < data.length; i++) {
-                    loadChart('canvas-' + data[i].id)
-                }
-            })
+            loadMovies(PageNo)
 
         });
     </script>
