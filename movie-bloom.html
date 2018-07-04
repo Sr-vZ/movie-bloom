@@ -29,7 +29,7 @@
                 <p>synopsis details</p>
             </div>
         </div> -->
-        
+
     </div>
     <div class="">
         <button type="button" class="btn btn-success float-left" onclick="prevPage()">Previous</button>
@@ -80,16 +80,17 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" id="submit-rating">Save changes</button>
                 </div>
             </div>
         </div>
     </div>
     <!-- Modal -->
-    
+
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script> -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
@@ -228,7 +229,7 @@
                         document.getElementById('movies-container').innerHTML = html
                         // loadChart('canvas-' + data[i].id)
                     }
-                    console.log(data)
+                    // console.log(data)
                 })
                 .then(() => {
                     for (i = 0; i < data.length; i++) {
@@ -243,7 +244,7 @@
                     max);
             });
         }
-
+    
         function createMoviecontainer(title, img, release_date, synopsis, genre, id) {
 
             html = '<div class="row" style="padding: 20px">' +
@@ -259,7 +260,8 @@
                 '<p>Release Date: ' + release_date + '</p>' +
 
                 '<p>Originally billed as: ' + genre + '</p>' +
-                '<button type="button" class="btn btn-success" id="btn-' + id + '" onclick="getSurvey('+id+')">Rate it!</button>' +
+                '<button type="button" class="btn btn-success" id="btn-' + id + '" onclick="getSurvey(' + id +
+                ')">Rate it!</button>' +
                 '<p></p>' +
                 '<p class="h4">SYNOPSIS</p>' +
                 '<p>' + synopsis + '</p>' +
@@ -302,12 +304,16 @@
                 loadMovies(PageNo)
             }
         }
+        labels = ["Action", "Adventure", "Suspense", "Mystery", "Drama", "Horror", "Romance", "Comedy",
+            "Science-Fiction",
+            "Fantasy"
+        ]
 
         function loadQuestions() {
-            labels = ["Action", "Adventure", "Suspense", "Mystery", "Drama", "Horror", "Romance", "Comedy",
-                "Science Fiction",
-                "Fantasy"
-            ]
+            // labels = ["Action", "Adventure", "Suspense", "Mystery", "Drama", "Horror", "Romance", "Comedy",
+            //     "Science Fiction",
+            //     "Fantasy"
+            // ]
             html = ''
             for (i = 0; i < labels.length; i++) {
                 html +=
@@ -330,14 +336,126 @@
 
         function getSurvey(id) {
             // console.log(id)
-            idx = data.findIndex(x=>x.id === id)
-            loadSurvey(data[idx].title,data[idx].img)
+            idx = data.findIndex(x => x.id === id)
+            loadSurvey(data[idx].title, data[idx].img)
+            $('#submit-rating').on('click', function () {
+                submitSurvey(id)
+            })
+
         }
+
+        function submitSurvey(id) {
+            jsonData = [], rating = {};
+            for (i = 0; i < labels.length; i++) {
+                ratingOption = labels[i] + '-options'
+                if ($("input[name='" + ratingOption + "']:checked").val())
+                    rating[labels[i]] = parseInt($("input[name='" + ratingOption + "']:checked").val())
+                else
+                    rating[labels[i]] = 0
+            }
+
+            jsonData.push({
+                id: id,
+                rating: rating,
+                // count:count+1
+            })
+            console.log(jsonData)
+            jsonUpdate(jsonData)
+        }
+
+        function jsonUpdate(bin) {
+            $.ajax({
+                url: jsonURL+'/latest',
+                type: 'GET',
+                /* headers: { //Required only if you are trying to access a private bin
+                    'secret-key': < SECRET_KEY >
+                }, */
+                success: (data) => {
+                    console.log(data);
+                    bin = bin.concat(data)
+                    $.ajax({
+                        url: jsonURL,
+                        type: 'PUT',
+                        contentType: 'application/json',
+                        data: JSON.stringify(bin),
+                        success: (data) => {
+                            console.log(data);
+                        },
+                        error: (err) => {
+                            console.log(err.responseJSON);
+                        }
+                    });
+                },
+                error: (err) => {
+                    console.log(err.responseJSON);
+                }
+            });
+            
+                
+                
+            
+            
+        }
+
+        function jsonRead(callback) {
+            $.ajax({
+                url: jsonURL+'/latest',
+                type: 'GET',
+                /* headers: { //Required only if you are trying to access a private bin
+                    'secret-key': < SECRET_KEY >
+                }, */
+                success: (data) => {
+                    console.log(data);
+                    callback(data)
+                },
+                error: (err) => {
+                    console.log(err.responseJSON);
+                }
+            });
+        }
+
+        function jsonCreate(bin) {
+            // jsonURL = 'https://www.jsonstore.io/b238546ade77ea0bda3136799337a73f1f5557716cd7fe9f067ee08afa790727'
+            $.ajax({
+                url: 'https://api.jsonbin.io/b',
+                type: 'POST',
+                contentType: 'application/json',
+
+                /* headers required ONLY if you are creating a private bin or you want to create a public bin
+                and also list the same in your account by passing private: false */
+                headers: {
+                    'secret-key': '$2a$10$/cyf55XhoUIUl77CfyiUWOb/vbr76Ef4ZmTP7V7RcBhq/HQzXH8MO',
+                    'private': false,
+                    // 'collection-id': < COLLECTION_ID >
+                },
+                data: JSON.stringify(bin),
+                success: (data) => {
+                    console.log(data);
+                },
+                error: (err) => {
+                    console.log(err.responseJSON);
+                }
+            });
+        }
+        jsonURL = 'https://api.jsonbin.io/b/5b3d1891dd2c022ecd9ed9a5'
+
+        function fetchGraphData(id) {
+            jsonRead(function (data) {
+                for(i=0;i<data.length;i++){
+                    if(data[i].id===id){
+                       console.log(data[i].rating) 
+                    }
+
+                }
+                
+            })
+        }
+
 
         function loadSurvey(title, img) {
             loadQuestions()
             $('#survey-movie-title').text(title)
-            $('#survey-movie-poster').attr('src',img)            
+            $('#survey-movie-poster').attr('src', img)
             $('#survey-modal').modal('show')
         }
 
