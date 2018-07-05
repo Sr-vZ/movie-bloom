@@ -50,20 +50,7 @@
                         <div class="col">
                             <form>
                                 <div class="form-group" id="survey-questions">
-                                    <!-- <label for="">1. How much ACTION was in the movie?</label>
-                      <div class="btn-group mr-2" role="group" aria-label="First group">
-                        <button type="button" class="btn btn-secondary">0</button>
-                        <button type="button" class="btn btn-secondary">1</button>
-                        <button type="button" class="btn btn-secondary">2</button>
-                        <button type="button" class="btn btn-secondary">3</button>
-                        <button type="button" class="btn btn-secondary">4</button>
-                        <button type="button" class="btn btn-secondary">5</button>
-                        <button type="button" class="btn btn-secondary">6</button>
-                        <button type="button" class="btn btn-secondary">7</button>
-                        <button type="button" class="btn btn-secondary">8</button>
-                        <button type="button" class="btn btn-secondary">9</button>
-                        <button type="button" class="btn btn-secondary">10</button>
-                      </div> -->
+
 
 
 
@@ -95,7 +82,9 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
         crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
+
     <script>
         PageNo = 1;
         genres = [{
@@ -194,6 +183,8 @@
         }
         var data = []
 
+        test = []
+
         function loadMovies(pageNo) {
             getMovieIDs(pageNo)
                 .then(rdata => {
@@ -233,10 +224,16 @@
                 })
                 .then(() => {
                     for (i = 0; i < data.length; i++) {
-                        loadChart('canvas-' + data[i].id, randomArray(10, 10))
+                        fetchGraphData(data[i].id, function (ratings) {
+                            test = ratings;
+                            loadChart('canvas-' + data[i].id, ratings)
+
+                        })
+
                     }
                 })
         }
+
 
         function randomArray(length, max) {
             return Array.apply(null, Array(length)).map(function () {
@@ -244,7 +241,7 @@
                     max);
             });
         }
-    
+
         function createMoviecontainer(title, img, release_date, synopsis, genre, id) {
 
             html = '<div class="row" style="padding: 20px">' +
@@ -270,6 +267,7 @@
         }
 
         function loadChart(ctxID, data) {
+
             var ctx = document.getElementById(ctxID).getContext('2d');
             var chart = new Chart(ctx, {
                 // The type of chart we want to create
@@ -291,6 +289,7 @@
                 // Configuration options go here
                 options: {}
             });
+            chart.update()
         }
 
         function nextPage() {
@@ -340,6 +339,7 @@
             loadSurvey(data[idx].title, data[idx].img)
             $('#submit-rating').on('click', function () {
                 submitSurvey(id)
+                $('#survey-modal').modal('hide')
             })
 
         }
@@ -365,14 +365,14 @@
 
         function jsonUpdate(bin) {
             $.ajax({
-                url: jsonURL+'/latest',
+                url: jsonURL + '/latest',
                 type: 'GET',
                 /* headers: { //Required only if you are trying to access a private bin
                     'secret-key': < SECRET_KEY >
                 }, */
                 success: (data) => {
                     console.log(data);
-                    bin = bin.concat(data)
+                    bin = bin.concat(data)                    
                     $.ajax({
                         url: jsonURL,
                         type: 'PUT',
@@ -390,16 +390,16 @@
                     console.log(err.responseJSON);
                 }
             });
-            
-                
-                
-            
-            
+
+
+
+
+
         }
 
         function jsonRead(callback) {
             $.ajax({
-                url: jsonURL+'/latest',
+                url: jsonURL + '/latest',
                 type: 'GET',
                 /* headers: { //Required only if you are trying to access a private bin
                     'secret-key': < SECRET_KEY >
@@ -439,15 +439,25 @@
         }
         jsonURL = 'https://api.jsonbin.io/b/5b3d1891dd2c022ecd9ed9a5'
 
-        function fetchGraphData(id) {
+        function fetchGraphData(id, callback) {
+            ratings = []
+            t =[0,0,0,0,0,0,0,0,0,0,0]
             jsonRead(function (data) {
-                for(i=0;i<data.length;i++){
-                    if(data[i].id===id){
-                       console.log(data[i].rating) 
+                for (i = 0; i < data.length; i++) {
+                    
+                    if (data[i].id === id) {
+                        
+                         for(j=0;j<labels.length;j++){
+                             
+                             ratings[j] = parseInt(data[i].rating[labels[j]])
+                         }                
+                         
+                        }
+                        
                     }
-
-                }
                 
+                // console.log(JSON.stringify(ratings))
+                callback(ratings)
             })
         }
 
