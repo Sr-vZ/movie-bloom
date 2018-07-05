@@ -372,7 +372,14 @@
                 }, */
                 success: (data) => {
                     console.log(data);
-                    bin = bin.concat(data)                    
+                    bin = bin.concat(data)
+                    for (i = 0; i < data.length; i++) {
+                        if (data[i].id === bin.id) {
+                            for (j = 0; j < labels.length; j++) {
+                                bin.rating[labels[j]] = (bin.rating[labels[j]] + data[i].rating[labels[j]])/2
+                            }
+                        }
+                    }
                     $.ajax({
                         url: jsonURL,
                         type: 'PUT',
@@ -441,21 +448,21 @@
 
         function fetchGraphData(id, callback) {
             ratings = []
-            t =[0,0,0,0,0,0,0,0,0,0,0]
+            t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
             jsonRead(function (data) {
                 for (i = 0; i < data.length; i++) {
-                    
+
                     if (data[i].id === id) {
-                        
-                         for(j=0;j<labels.length;j++){
-                             
-                             ratings[j] = parseInt(data[i].rating[labels[j]])
-                         }                
-                         
+
+                        for (j = 0; j < labels.length; j++) {
+
+                            ratings[j] = parseInt(data[i].rating[labels[j]])
                         }
-                        
+
                     }
-                
+
+                }
+
                 // console.log(JSON.stringify(ratings))
                 callback(ratings)
             })
