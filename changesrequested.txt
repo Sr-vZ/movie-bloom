@@ -1,0 +1,14 @@
+There are several small tweaks I would like you to make, and then I think we're finished.
+
+
+Have the [Previous] and [Next] buttons return the viewer to the top of the page
+Make the [Rate it!], [Previous] and [Next] buttons, and the graph bars (currently pink) the same green as the "BLOOM" in "MOVIEBLOOM"
+Completing a survey refreshes the page to reflect the new results
+Change text [Close] to [Cancel] and change text [Save changes] to [Submit] in the survey
+No partial surveys allowed - [Submit] should only be clickable once all 10 lines contain input
+Change the movie list from "Popular" to "Now Playing"
+Unrated movies to show the same graph, but blank (with 0's)
+List all of a movie's genres (For example, Jurassic World = Action, Adventure, Science Fiction)
+Movie title in a single line; top edge of graph to be aligned with top edge of movie poster, like in original site
+
+Lastly, is it possible to have the survey appear closer to its respective movie than at the top of the page? And how do I maintain this site after the job is complete? For example, manually filtering through all submitted surveys to remove bogus survey entries?
