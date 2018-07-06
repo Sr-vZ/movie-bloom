@@ -19,6 +19,7 @@
   "dependencies": {
     "fetch-with-proxy": "^1.1.0",
     "https-proxy-agent": "^2.2.1",
+    "lodash": "^4.17.10",
     "node-fetch": "^2.1.2"
   }
 }

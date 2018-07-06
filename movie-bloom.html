@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
 </head>
+<style>
+    .bloom-button {
+        background: rgba(127, 195, 48, 1)
+    }
+</style>
 
 <body>
     <div id="movies-container" class="container">
@@ -32,8 +37,8 @@
 
     </div>
     <div class="">
-        <button type="button" class="btn btn-success float-left" onclick="prevPage()">Previous</button>
-        <button type="button" class="btn btn-success float-right" onclick="nextPage()">Next</button>
+<button type="button" class="btn btn-success float-left bloom-button" onclick="prevPage()">Previous</button>
+<button type="button" class="btn btn-success float-right bloom-button" onclick="nextPage()">Next</button>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="survey-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -66,8 +71,8 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="submit-rating">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="submit-rating">Submit</button>
                 </div>
             </div>
         </div>
@@ -225,23 +230,24 @@
                 .then(() => {
 
                     jsonRead(function (ratingData) {
- uniqueRatingID=[],consolidated =[],ratings = []    
-                        for(r = 0; r < ratingData.length; r++){
-                                uniqueRatingID[r] = ratingData[r].id
-                            }
-                            uniqueRatingID = _.uniq(uniqueRatingID)
-                        for(k=0;k<uniqueRatingID.length;k++){
-                            for(r = 0; r < ratingData.length; r++){
-                                if(ratingData[r].id===uniqueRatingID[k]){
-                                    for (j = 0; j < labels.length; j++) {
+                        // uniqueRatingID = [], consolidated = [], ratings = []
+                        // for (r = 0; r < ratingData.length; r++) {
+                        //     uniqueRatingID[r] = ratingData[r].id
+                        // }
+                        // uniqueRatingID = _.uniq(uniqueRatingID)
 
-                                        ratings[j] += parseInt(ratingData[r].rating[labels[j]])
-                                    }
-                                }
-                            } 
-                        }
+                        // for (k = 0; k < uniqueRatingID.length; k++) {
+                        //     for (r = 0; r < ratingData.length; r++) {
+                        //         if (ratingData[r].id === uniqueRatingID[k]) {
+                        //             for (j = 0; j < labels.length; j++) {
 
-                           
+                        //                 ratings[j] += parseInt(ratingData[r].rating[labels[j]])
+                        //             }
+                        //         }
+                        //     }
+                        // }
+                        avg_rating = averageRatings(ratingData)
+
                         for (i = 0; i < data.length; i++) {
                             // fetchGraphData(data[i].id, function (ratings) {
                             //     test = ratings;
@@ -249,15 +255,20 @@
 
                             // })
                             ratings = []
-                            
-                            for (r = 0; r < ratingData.length; r++) {
-                                if (data[i].id === ratingData[r].id) {
+                            t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                            loadChart('canvas-' + data[i].id, t)
 
-                                    for (j = 0; j < labels.length; j++) {
+                            for (r = 0; r < avg_rating.length; r++) {
+                                if (data[i].id === avg_rating[r].id) {
 
-                                        ratings[j] = parseInt(ratingData[r].rating[labels[j]])
-                                    }
-                                    loadChart('canvas-' + data[i].id, ratings)
+                                    // for (j = 0; j < labels.length; j++) {
+
+                                    //     ratings[j] = parseInt(ratingData[r].rating[labels[j]])
+                                    // }
+                                    loadChart('canvas-' + data[i].id, avg_rating[r].total_rating)
+                                } else {
+                                    // t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                                    // loadChart('canvas-' + data[i].id)
                                 }
                             }
 
@@ -278,8 +289,10 @@
         function createMoviecontainer(title, img, release_date, synopsis, genre, id) {
 
             html = '<div class="row" style="padding: 20px">' +
+                '<p class="h2" style="padding: 20px">' + title + '</p>' +
+                 '<div class="row" style="padding: 20px">' +
                 '<div class="col">' +
-                '<p class="h2">' + title + '</p>' +
+                
                 '<img src="' + img +
                 '" class="img-fluid rounded float-left " style="width: 100%" alt="Responsive image">' +
                 '</div>' +
@@ -290,12 +303,13 @@
                 '<p>Release Date: ' + release_date + '</p>' +
 
                 '<p>Originally billed as: ' + genre + '</p>' +
-                '<button type="button" class="btn btn-success" id="btn-' + id + '" onclick="getSurvey(' + id +
+                '<button type="button" class="btn btn-success bloom-button" id="btn-' + id + '" onclick="getSurvey(' + id +
                 ')">Rate it!</button>' +
                 '<p></p>' +
                 '<p class="h4">SYNOPSIS</p>' +
                 '<p>' + synopsis + '</p>' +
-                '</div></div>'
+                '</div></div>'+
+                '</div>'
             return html
         }
 
@@ -313,8 +327,8 @@
                     ],
                     datasets: [{
                         label: "Rating",
-                        backgroundColor: 'rgb(255, 99, 132)',
-                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(127, 195, 48, 1)',
+                        borderColor: 'rgba(127, 195, 48, 1)',
                         data: data,
                     }]
                 },
@@ -331,7 +345,7 @@
                             ticks: {
                                 min: 0,
                                 max: 10,
-                                // stepSize: 1300
+                                stepSize: 1
                             }
                         }]
                     }
@@ -343,12 +357,14 @@
         function nextPage() {
             PageNo = PageNo + 1
             loadMovies(PageNo)
+            window.scrollTo(0, 0)
         }
 
         function prevPage() {
             if (PageNo !== 1) {
                 PageNo = PageNo - 1
                 loadMovies(PageNo)
+                window.scrollTo(0, 0)
             }
         }
         labels = ["Action", "Adventure", "Suspense", "Mystery", "Drama", "Horror", "Romance", "Comedy",
@@ -385,7 +401,18 @@
             // console.log(id)
             idx = data.findIndex(x => x.id === id)
             loadSurvey(data[idx].title, data[idx].img)
+            /* for (i = 0; i < labels.length; i++) {
+                ratingOption = labels[i] + '-options'
+                if ($("input[name='" + ratingOption + "']:checked").val())
+                {
+                    document.getElementById("submit-rating").disabled = false
+                    // rating[labels[i]] = 0
+                } else {
+                    document.getElementById("submit-rating").disabled = true
+                }
+            } */
             $('#submit-rating').on('click', function () {
+                
                 submitSurvey(id)
                 $('#survey-modal').modal('hide')
             })
@@ -398,8 +425,10 @@
                 ratingOption = labels[i] + '-options'
                 if ($("input[name='" + ratingOption + "']:checked").val())
                     rating[labels[i]] = parseInt($("input[name='" + ratingOption + "']:checked").val())
-                else
-                    rating[labels[i]] = 0
+                else {
+
+                    // rating[labels[i]] = 0
+                }
             }
 
             jsonData.push({
@@ -408,7 +437,9 @@
                 // count:count+1
             })
             console.log(jsonData)
-            jsonUpdate(jsonData)
+            jsonUpdate(jsonData, function () {
+                window.location.reload()
+            })
         }
 
         function jsonUpdate(bin) {
@@ -521,8 +552,65 @@
             })
         }
 
+        function averageRatings(data) {
+
+            ids = []
+            for (i = 0; i < data.length; i++) {
+                ids[i] = data[i].id
+            }
+
+            uids = _.uniq(ids)
+            fdata = []
+
+
+
+            for (i = 0; i < uids.length; i++) {
+                t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                // console.log('id = ' + uids[i])
+                n = 0
+                for (j = 0; j < data.length; j++) {
+
+                    // console.log('data index = ' + j + ' data id = ' + data[j].id)
+                    if (data[j].id === uids[i]) {
+                        n++
+                        // console.log('id matched for ' + data[j].id)
+                        for (l = 0; l < labels.length; l++) {
+
+                            t[l] += data[j].rating[labels[l]]
+
+                        }
+                        // console.log(n, t)
+                    }
+
+                }
+
+                for (k = 0; k < t.length; k++) {
+                    if (n > 0)
+                        t[k] = (t[k] / (n)).toFixed(2) * 1
+                }
+                fdata.push({
+                    id: uids[i],
+                    total_rating: t
+                })
+            }
+            return fdata
+        }
+        
+        function enableSurveySubmit() {
+            for (i = 0; i < labels.length; i++) {
+                ratingOption = labels[i] + '-options'
+                if ($("input[name='" + ratingOption + "']:checked").val())
+                {
+                    document.getElementById("submit-rating").disabled = false
+                    // rating[labels[i]] = 0
+                } else {
+                    document.getElementById("submit-rating").disabled = true
+                }
+            }
+        }
 
         function loadSurvey(title, img) {
+            document.getElementById("submit-rating").disabled = true
             loadQuestions()
             $('#survey-movie-title').text(title)
             $('#survey-movie-poster').attr('src', img)
@@ -531,7 +619,8 @@
 
         $(document).ready(function () {
             loadMovies(PageNo)
-
+            
+            document.getElementById('survey-modal').addEventListener('mousemove',enableSurveySubmit)
         });
     </script>
 </body>
