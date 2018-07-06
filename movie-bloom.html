@@ -225,23 +225,24 @@
                 .then(() => {
 
                     jsonRead(function (ratingData) {
- uniqueRatingID=[],consolidated =[],ratings = []
-                        for(r = 0; r < ratingData.length; r++){
-                                uniqueRatingID[r] = ratingData[r].id
-                            }
-                            uniqueRatingID = _.uniq(uniqueRatingID)
-                        for(k=0;k<uniqueRatingID.length;k++){
-                            for(r = 0; r < ratingData.length; r++){
-                                if(ratingData[r].id===uniqueRatingID[k]){
-                                    for (j = 0; j < labels.length; j++) {
+                        // uniqueRatingID = [], consolidated = [], ratings = []
+                        // for (r = 0; r < ratingData.length; r++) {
+                        //     uniqueRatingID[r] = ratingData[r].id
+                        // }
+                        // uniqueRatingID = _.uniq(uniqueRatingID)
 
-                                        ratings[j] += parseInt(ratingData[r].rating[labels[j]])
-                                    }
-                                }
-                            } 
-                        }
+                        // for (k = 0; k < uniqueRatingID.length; k++) {
+                        //     for (r = 0; r < ratingData.length; r++) {
+                        //         if (ratingData[r].id === uniqueRatingID[k]) {
+                        //             for (j = 0; j < labels.length; j++) {
 
-                           
+                        //                 ratings[j] += parseInt(ratingData[r].rating[labels[j]])
+                        //             }
+                        //         }
+                        //     }
+                        // }
+                        avg_rating = averageRatings(ratingData)
+
                         for (i = 0; i < data.length; i++) {
                             // fetchGraphData(data[i].id, function (ratings) {
                             //     test = ratings;
@@ -249,15 +250,15 @@
 
                             // })
                             ratings = []
-                            
-                            for (r = 0; r < ratingData.length; r++) {
-                                if (data[i].id === ratingData[r].id) {
 
-                                    for (j = 0; j < labels.length; j++) {
+                            for (r = 0; r < avg_rating.length; r++) {
+                                if (data[i].id === avg_rating[r].id) {
 
-                                        ratings[j] = parseInt(ratingData[r].rating[labels[j]])
-                                    }
-                                    loadChart('canvas-' + data[i].id, ratings)
+                                    // for (j = 0; j < labels.length; j++) {
+
+                                    //     ratings[j] = parseInt(ratingData[r].rating[labels[j]])
+                                    // }
+                                    loadChart('canvas-' + data[i].id, avg_rating[r].total_rating)
                                 }
                             }
 
@@ -331,7 +332,7 @@
                             ticks: {
                                 min: 0,
                                 max: 10,
-                                // stepSize: 1300
+                                stepSize: 1
                             }
                         }]
                     }
@@ -519,6 +520,50 @@
                 // console.log(JSON.stringify(ratings))
                 callback(ratings)
             })
+        }
+
+        function averageRatings(data) {
+
+            ids = []
+            for (i = 0; i < data.length; i++) {
+                ids[i] = data[i].id
+            }
+
+            uids = _.uniq(ids)
+            fdata = []
+
+            
+
+            for (i = 0; i < uids.length; i++) {
+                t = [0, 0, 0, 0, 0, 0, 0, 0.0, 0, 0]
+                // console.log('id = ' + uids[i])
+                n = 0
+                for (j = 0; j < data.length; j++) {
+
+                    // console.log('data index = ' + j + ' data id = ' + data[j].id)
+                    if (data[j].id === uids[i]) {
+                        n++
+                        // console.log('id matched for ' + data[j].id)
+                        for (l = 0; l < labels.length; l++) {
+
+                            t[l] += data[j].rating[labels[l]]
+
+                        }
+                        // console.log(n, t)
+                    }
+
+                }
+
+                for (k = 0; k < t.length; k++) {
+                    if (n > 0)
+                        t[k] = (t[k] / (n)).toFixed(2)*1
+                }
+                fdata.push({
+                    id: uids[i],
+                    total_rating: t
+                })
+            }
+            return fdata
         }
 
 
