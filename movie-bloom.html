@@ -290,7 +290,7 @@
         function createMoviecontainer(title, img, release_date, synopsis, genre, id) {
 
             html = '<div class="row" style="padding: 20px">' +
-                '<p class="h2" style="padding: 20px">' + title + '</p>' +
+                '<p class="h2" style="padding: 5px">' + title + '</p>' +
                 '<div class="row" style="padding: 20px">' +
                 '<div class="col">' +
 
@@ -489,8 +489,8 @@
             })
             console.log(jsonData)
             jsonUpdate(jsonData, function () {
-                // window.location.reload(true)
-                // window.location = window.location;
+                window.location.reload(true)
+                window.location = window.location;
                 updatePageCharts()
 
             })
@@ -674,6 +674,7 @@
             loadMovies(PageNo)
 
             document.getElementById('survey-modal').addEventListener('mousemove', enableSurveySubmit)
+
         });
     </script>
 </body>
