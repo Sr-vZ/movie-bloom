@@ -6,9 +6,9 @@ Make the [Rate it!], [Previous] and [Next] buttons, and the graph bars (currentl
 Completing a survey refreshes the page to reflect the new results 
 Change text [Close] to [Cancel] and change text [Save changes] to [Submit] in the survey -- done --- tested ok
 No partial surveys allowed - [Submit] should only be clickable once all 10 lines contain input --done --tested ok
-Change the movie list from "Popular" to "Now Playing"
+Change the movie list from "Popular" to "Now Playing" --- done
 Unrated movies to show the same graph, but blank (with 0's) --- done
-List all of a movie's genres (For example, Jurassic World = Action, Adventure, Science Fiction)
+List all of a movie's genres (For example, Jurassic World = Action, Adventure, Science Fiction) --- done
 Movie title in a single line; top edge of graph to be aligned with top edge of movie poster, like in original site --done
 
 Lastly, is it possible to have the survey appear closer to its respective movie than at the top of the page? And how do I maintain this site after the job is complete? For example, manually filtering through all submitted surveys to remove bogus survey entries?

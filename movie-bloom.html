@@ -37,8 +37,8 @@
 
     </div>
     <div class="">
-<button type="button" class="btn btn-success float-left bloom-button" onclick="prevPage()">Previous</button>
-<button type="button" class="btn btn-success float-right bloom-button" onclick="nextPage()">Next</button>
+        <button type="button" class="btn btn-success float-left bloom-button" onclick="prevPage()">Previous</button>
+        <button type="button" class="btn btn-success float-right bloom-button" onclick="nextPage()">Next</button>
     </div>
     <!-- Modal -->
     <div class="modal fade" id="survey-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -175,7 +175,8 @@
                 pageNo = 1
 
             const url =
-                'https://api.themoviedb.org/3/discover/movie?api_key=9eed022e522148efdb5a1fc5d8900333&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' +
+                // 'https://api.themoviedb.org/3/discover/movie?api_key=9eed022e522148efdb5a1fc5d8900333&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' +
+                'https://api.themoviedb.org/3/movie/now_playing?api_key=9eed022e522148efdb5a1fc5d8900333&language=en-US&page='+
                 pageNo
             console.log("Url: " + url);
 
@@ -198,12 +199,12 @@
                     // var data = []
                     data = []
                     for (i = 0; i < rdata.results.length; i++) {
-
+                        var genre = [];
                         for (j = 0; j < rdata.results[i].genre_ids.length; j++) {
-                            var genre = [];
+                           
                             for (k = 0; k < genres.length; k++) {
                                 if (genres[k].id === rdata.results[i].genre_ids[j])
-                                    genre.push(genres[k].name)
+                                    genre.push(' '+genres[k].name)
                             }
                             // genre.push(getGenreFromID(rdata.results[i].genre_ids[j]))
                         }
@@ -290,9 +291,9 @@
 
             html = '<div class="row" style="padding: 20px">' +
                 '<p class="h2" style="padding: 20px">' + title + '</p>' +
-                 '<div class="row" style="padding: 20px">' +
+                '<div class="row" style="padding: 20px">' +
                 '<div class="col">' +
-                
+
                 '<img src="' + img +
                 '" class="img-fluid rounded float-left " style="width: 100%" alt="Responsive image">' +
                 '</div>' +
@@ -303,12 +304,13 @@
                 '<p>Release Date: ' + release_date + '</p>' +
 
                 '<p>Originally billed as: ' + genre + '</p>' +
-                '<button type="button" class="btn btn-success bloom-button" id="btn-' + id + '" onclick="getSurvey(' + id +
+                '<button type="button" class="btn btn-success bloom-button" id="btn-' + id + '" onclick="getSurvey(' +
+                id +
                 ')">Rate it!</button>' +
                 '<p></p>' +
                 '<p class="h4">SYNOPSIS</p>' +
                 '<p>' + synopsis + '</p>' +
-                '</div></div>'+
+                '</div></div>' +
                 '</div>'
             return html
         }
@@ -354,6 +356,54 @@
             chart.update()
         }
 
+
+        function updatePageCharts() {
+            jsonRead(function (ratingData) {
+                        // uniqueRatingID = [], consolidated = [], ratings = []
+                        // for (r = 0; r < ratingData.length; r++) {
+                        //     uniqueRatingID[r] = ratingData[r].id
+                        // }
+                        // uniqueRatingID = _.uniq(uniqueRatingID)
+
+                        // for (k = 0; k < uniqueRatingID.length; k++) {
+                        //     for (r = 0; r < ratingData.length; r++) {
+                        //         if (ratingData[r].id === uniqueRatingID[k]) {
+                        //             for (j = 0; j < labels.length; j++) {
+
+                        //                 ratings[j] += parseInt(ratingData[r].rating[labels[j]])
+                        //             }
+                        //         }
+                        //     }
+                        // }
+                        avg_rating = averageRatings(ratingData)
+
+                        for (i = 0; i < data.length; i++) {
+                            // fetchGraphData(data[i].id, function (ratings) {
+                            //     test = ratings;
+                            //     loadChart('canvas-' + data[i].id, ratings)
+
+                            // })
+                            ratings = []
+                            t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                            loadChart('canvas-' + data[i].id, t)
+
+                            for (r = 0; r < avg_rating.length; r++) {
+                                if (data[i].id === avg_rating[r].id) {
+
+                                    // for (j = 0; j < labels.length; j++) {
+
+                                    //     ratings[j] = parseInt(ratingData[r].rating[labels[j]])
+                                    // }
+                                    loadChart('canvas-' + data[i].id, avg_rating[r].total_rating)
+                                } else {
+                                    // t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                                    // loadChart('canvas-' + data[i].id)
+                                }
+                            }
+
+                        }
+                    })
+        }
         function nextPage() {
             PageNo = PageNo + 1
             loadMovies(PageNo)
@@ -412,14 +462,14 @@
                 }
             } */
             $('#submit-rating').on('click', function () {
-                
-                submitSurvey(id)
+
+                submitSurvey(id,data[idx].title)
                 $('#survey-modal').modal('hide')
             })
 
         }
 
-        function submitSurvey(id) {
+        function submitSurvey(id,title) {
             jsonData = [], rating = {};
             for (i = 0; i < labels.length; i++) {
                 ratingOption = labels[i] + '-options'
@@ -433,12 +483,16 @@
 
             jsonData.push({
                 id: id,
+                title:title,
                 rating: rating,
                 // count:count+1
             })
             console.log(jsonData)
             jsonUpdate(jsonData, function () {
-                window.location.reload()
+                // window.location.reload(true)
+                // window.location = window.location;
+                updatePageCharts()
+
             })
         }
 
@@ -595,12 +649,11 @@
             }
             return fdata
         }
-        
+
         function enableSurveySubmit() {
             for (i = 0; i < labels.length; i++) {
                 ratingOption = labels[i] + '-options'
-                if ($("input[name='" + ratingOption + "']:checked").val())
-                {
+                if ($("input[name='" + ratingOption + "']:checked").val()) {
                     document.getElementById("submit-rating").disabled = false
                     // rating[labels[i]] = 0
                 } else {
@@ -619,8 +672,8 @@
 
         $(document).ready(function () {
             loadMovies(PageNo)
-            
-            document.getElementById('survey-modal').addEventListener('mousemove',enableSurveySubmit)
+
+            document.getElementById('survey-modal').addEventListener('mousemove', enableSurveySubmit)
         });
     </script>
 </body>
