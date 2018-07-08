@@ -41,7 +41,7 @@
         <button type="button" class="btn btn-success float-right bloom-button" onclick="nextPage()">Next</button>
     </div>
     <!-- Modal -->
-    <div class="modal fade" id="survey-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="position: relative">
+    <div class="modal fade" id="survey-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -176,7 +176,7 @@
 
             const url =
                 // 'https://api.themoviedb.org/3/discover/movie?api_key=9eed022e522148efdb5a1fc5d8900333&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=' +
-                'https://api.themoviedb.org/3/movie/now_playing?api_key=9eed022e522148efdb5a1fc5d8900333&language=en-US&page='+
+                'https://api.themoviedb.org/3/movie/now_playing?api_key=9eed022e522148efdb5a1fc5d8900333&language=en-US&page=' +
                 pageNo
             console.log("Url: " + url);
 
@@ -201,10 +201,10 @@
                     for (i = 0; i < rdata.results.length; i++) {
                         var genre = [];
                         for (j = 0; j < rdata.results[i].genre_ids.length; j++) {
-                           
+
                             for (k = 0; k < genres.length; k++) {
                                 if (genres[k].id === rdata.results[i].genre_ids[j])
-                                    genre.push(' '+genres[k].name)
+                                    genre.push(' ' + genres[k].name)
                             }
                             // genre.push(getGenreFromID(rdata.results[i].genre_ids[j]))
                         }
@@ -359,51 +359,52 @@
 
         function updatePageCharts() {
             jsonRead(function (ratingData) {
-                        // uniqueRatingID = [], consolidated = [], ratings = []
-                        // for (r = 0; r < ratingData.length; r++) {
-                        //     uniqueRatingID[r] = ratingData[r].id
-                        // }
-                        // uniqueRatingID = _.uniq(uniqueRatingID)
+                // uniqueRatingID = [], consolidated = [], ratings = []
+                // for (r = 0; r < ratingData.length; r++) {
+                //     uniqueRatingID[r] = ratingData[r].id
+                // }
+                // uniqueRatingID = _.uniq(uniqueRatingID)
 
-                        // for (k = 0; k < uniqueRatingID.length; k++) {
-                        //     for (r = 0; r < ratingData.length; r++) {
-                        //         if (ratingData[r].id === uniqueRatingID[k]) {
-                        //             for (j = 0; j < labels.length; j++) {
+                // for (k = 0; k < uniqueRatingID.length; k++) {
+                //     for (r = 0; r < ratingData.length; r++) {
+                //         if (ratingData[r].id === uniqueRatingID[k]) {
+                //             for (j = 0; j < labels.length; j++) {
 
-                        //                 ratings[j] += parseInt(ratingData[r].rating[labels[j]])
-                        //             }
-                        //         }
-                        //     }
-                        // }
-                        avg_rating = averageRatings(ratingData)
+                //                 ratings[j] += parseInt(ratingData[r].rating[labels[j]])
+                //             }
+                //         }
+                //     }
+                // }
+                avg_rating = averageRatings(ratingData)
 
-                        for (i = 0; i < data.length; i++) {
-                            // fetchGraphData(data[i].id, function (ratings) {
-                            //     test = ratings;
-                            //     loadChart('canvas-' + data[i].id, ratings)
+                for (i = 0; i < data.length; i++) {
+                    // fetchGraphData(data[i].id, function (ratings) {
+                    //     test = ratings;
+                    //     loadChart('canvas-' + data[i].id, ratings)
 
-                            // })
-                            ratings = []
-                            t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                            loadChart('canvas-' + data[i].id, t)
+                    // })
+                    ratings = []
+                    t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                    loadChart('canvas-' + data[i].id, t)
 
-                            for (r = 0; r < avg_rating.length; r++) {
-                                if (data[i].id === avg_rating[r].id) {
+                    for (r = 0; r < avg_rating.length; r++) {
+                        if (data[i].id === avg_rating[r].id) {
 
-                                    // for (j = 0; j < labels.length; j++) {
+                            // for (j = 0; j < labels.length; j++) {
 
-                                    //     ratings[j] = parseInt(ratingData[r].rating[labels[j]])
-                                    // }
-                                    loadChart('canvas-' + data[i].id, avg_rating[r].total_rating)
-                                } else {
-                                    // t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                                    // loadChart('canvas-' + data[i].id)
-                                }
-                            }
-
+                            //     ratings[j] = parseInt(ratingData[r].rating[labels[j]])
+                            // }
+                            loadChart('canvas-' + data[i].id, avg_rating[r].total_rating)
+                        } else {
+                            // t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                            // loadChart('canvas-' + data[i].id)
                         }
-                    })
+                    }
+
+                }
+            })
         }
+
         function nextPage() {
             PageNo = PageNo + 1
             loadMovies(PageNo)
@@ -463,13 +464,13 @@
             } */
             $('#submit-rating').on('click', function () {
 
-                submitSurvey(id,data[idx].title)
+                submitSurvey(id, data[idx].title)
                 $('#survey-modal').modal('hide')
             })
 
         }
 
-        function submitSurvey(id,title) {
+        function submitSurvey(id, title) {
             jsonData = [], rating = {};
             for (i = 0; i < labels.length; i++) {
                 ratingOption = labels[i] + '-options'
@@ -483,7 +484,7 @@
 
             jsonData.push({
                 id: id,
-                title:title,
+                title: title,
                 rating: rating,
                 // count:count+1
             })
@@ -674,7 +675,17 @@
             loadMovies(PageNo)
 
             document.getElementById('survey-modal').addEventListener('mousemove', enableSurveySubmit)
-            
+
+            // test modal location code
+            $('#btn*').on('mousedown', function (event) {
+                // event.preventDefault();
+                $('#survey-modal').data('y', event.pageY); // store the mouseY position
+                $('#survey-modal').modal('show');
+            });
+            $('#survey-modal').on('show.bs.modal', function (e) {
+                var y = $('#survey-modal').data('y'); // gets the mouseY position
+                $('#survey-modal').css('top', y);
+            });
         });
     </script>
 </body>
