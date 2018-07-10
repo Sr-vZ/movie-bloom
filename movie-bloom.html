@@ -17,7 +17,7 @@
 </style>
 
 <body>
-    <div id="movies-container" class="container">
+    <div id="movies-container" class="container-fluid">
         <!-- <div class="row">
             <div class="col">
                 <p class="h2">h2. Bootstrap heading</p>
@@ -359,22 +359,7 @@
 
         function updatePageCharts() {
             jsonRead(function (ratingData) {
-                // uniqueRatingID = [], consolidated = [], ratings = []
-                // for (r = 0; r < ratingData.length; r++) {
-                //     uniqueRatingID[r] = ratingData[r].id
-                // }
-                // uniqueRatingID = _.uniq(uniqueRatingID)
-
-                // for (k = 0; k < uniqueRatingID.length; k++) {
-                //     for (r = 0; r < ratingData.length; r++) {
-                //         if (ratingData[r].id === uniqueRatingID[k]) {
-                //             for (j = 0; j < labels.length; j++) {
-
-                //                 ratings[j] += parseInt(ratingData[r].rating[labels[j]])
-                //             }
-                //         }
-                //     }
-                // }
+                
                 avg_rating = averageRatings(ratingData)
 
                 for (i = 0; i < data.length; i++) {
@@ -677,7 +662,7 @@
             document.getElementById('survey-modal').addEventListener('mousemove', enableSurveySubmit)
 
             // test modal location code
-            $('#btn*').on('mousedown', function (event) {
+            $('[id^=btn-]').on('mousedown', function (event) {
                 // event.preventDefault();
                 $('#survey-modal').data('y', event.pageY); // store the mouseY position
                 $('#survey-modal').modal('show');
