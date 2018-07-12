@@ -480,6 +480,8 @@
             jsonUpdate(jsonData, function () {
                 window.location.reload(true)
                 window.location = window.location;
+                window.parent.location.reload();
+                window.parent.location = document.referrer
                 updatePageCharts()
 
             })
