@@ -14,7 +14,8 @@
     .bloom-button {
         background: rgba(127, 195, 48, 1);
     }
-    .modal-dialog{
+
+    .modal-dialog {
         width: 800px;
     }
 </style>
@@ -362,7 +363,7 @@
 
         function updatePageCharts() {
             jsonRead(function (ratingData) {
-                
+
                 avg_rating = averageRatings(ratingData)
 
                 for (i = 0; i < data.length; i++) {
@@ -383,7 +384,7 @@
                             //     ratings[j] = parseInt(ratingData[r].rating[labels[j]])
                             // }
                             loadChart('canvas-' + data[i].id, avg_rating[r].total_rating)
-                        } 
+                        }
                     }
 
                 }
@@ -484,7 +485,7 @@
             })
         }
 
-        function jsonUpdate(bin,callback) {
+        function jsonUpdate(bin, callback) {
             $.ajax({
                 url: jsonURL + '/latest',
                 type: 'GET',
@@ -674,6 +675,18 @@
                 var y = $('#survey-modal').data('y'); // gets the mouseY position
                 $('#survey-modal').css('top', y);
             });
+
+            // Get the document offset :
+            var offset = $(document).scrollTop(),
+
+                // Get the window viewport height
+                viewportHeight = $(window).height(),
+
+                // cache your dialog element
+                $myDialog = $('#survey-modal');
+
+            // now set your dialog position
+            $myDialog.css('top', (offset + (viewportHeight / 2)) - ($myDialog.outerHeight() / 2));
         });
     </script>
 </body>
