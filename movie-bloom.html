@@ -96,7 +96,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
 
     <script>
-        document.domain = 'movie-bloom.com'
+        // document.domain = 'movie-bloom.com'
         PageNo = 1;
         genres = [{
                 id: 28,
@@ -395,8 +395,9 @@
 
         function nextPage() {
             PageNo = PageNo + 1
+            
             loadMovies(PageNo)
-            window.scrollTo(0, 0)
+            window.top.scrollTo(0, 0)
         }
 
         function prevPage() {
