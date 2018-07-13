@@ -14,15 +14,17 @@
     .bloom-button {
         background: rgba(127, 195, 48, 1);
     }
-    .modal-dialog{
+
+    .modal-dialog {
         width: 800px;
     }
 </style>
 
 <body>
-    
+
     <!-- Modal -->
-    <div class="modal fade" id="survey-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="survey-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        style="position:absolute">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -363,7 +365,7 @@
 
         function updatePageCharts() {
             jsonRead(function (ratingData) {
-                
+
                 avg_rating = averageRatings(ratingData)
 
                 for (i = 0; i < data.length; i++) {
@@ -384,7 +386,7 @@
                             //     ratings[j] = parseInt(ratingData[r].rating[labels[j]])
                             // }
                             loadChart('canvas-' + data[i].id, avg_rating[r].total_rating)
-                        } 
+                        }
                     }
 
                 }
@@ -485,7 +487,7 @@
             })
         }
 
-        function jsonUpdate(bin,callback) {
+        function jsonUpdate(bin, callback) {
             $.ajax({
                 url: jsonURL + '/latest',
                 type: 'GET',
