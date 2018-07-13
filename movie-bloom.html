@@ -383,10 +383,7 @@
                             //     ratings[j] = parseInt(ratingData[r].rating[labels[j]])
                             // }
                             loadChart('canvas-' + data[i].id, avg_rating[r].total_rating)
-                        } else {
-                            // t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                            // loadChart('canvas-' + data[i].id)
-                        }
+                        } 
                     }
 
                 }
@@ -478,14 +475,16 @@
             })
             console.log(jsonData)
             jsonUpdate(jsonData, function () {
-                window.location.reload(true)
-                window.location = window.location;
+                // window.location.reload(true)
+                // window.location = window.location;
+                window.parent.location.reload();
+                window.parent.location = document.referrer
                 updatePageCharts()
 
             })
         }
 
-        function jsonUpdate(bin) {
+        function jsonUpdate(bin,callback) {
             $.ajax({
                 url: jsonURL + '/latest',
                 type: 'GET',
@@ -514,6 +513,7 @@
                         data: JSON.stringify(data),
                         success: (data) => {
                             console.log(data);
+                            callback
                         },
                         error: (err) => {
                             console.log(err.responseJSON);
