@@ -483,6 +483,7 @@
                 // window.location = window.location;
                 window.parent.location.reload();
                 window.parent.location = document.referrer
+                window.parent.postMessage('reloadNow', '*');
                 updatePageCharts()
 
             })
