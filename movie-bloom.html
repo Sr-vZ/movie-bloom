@@ -518,7 +518,7 @@
                         data: JSON.stringify(data),
                         success: (data) => {
                             console.log(data);
-                            callback
+                            callback()
                         },
                         error: (err) => {
                             console.log(err.responseJSON);
