@@ -1,0 +1,454 @@
+[
+    {
+      "rating": {
+        "Fantasy": 4,
+        "Science-Fiction": 4,
+        "Comedy": 4,
+        "Romance": 4,
+        "Horror": 4,
+        "Drama": 4,
+        "Mystery": 4,
+        "Suspense": 4,
+        "Adventure": 4,
+        "Action": 4
+      },
+      "id": 260513
+    },
+    {
+      "id": 351286,
+      "rating": {
+        "Action": 8,
+        "Adventure": 8,
+        "Suspense": 0,
+        "Mystery": 8,
+        "Drama": 8,
+        "Horror": 8,
+        "Romance": 8,
+        "Comedy": 8,
+        "Science-Fiction": 8,
+        "Fantasy": 8
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 4,
+        "Science-Fiction": 4,
+        "Comedy": 4,
+        "Romance": 4,
+        "Horror": 4,
+        "Drama": 4,
+        "Mystery": 4,
+        "Suspense": 4,
+        "Adventure": 4,
+        "Action": 4
+      },
+      "id": 351286
+    },
+    {
+      "id": 351286,
+      "rating": {
+        "Action": 6,
+        "Adventure": 6,
+        "Suspense": 6,
+        "Mystery": 6,
+        "Drama": 6,
+        "Horror": 6,
+        "Romance": 6,
+        "Comedy": 6,
+        "Science-Fiction": 6,
+        "Fantasy": 6
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 5,
+        "Science-Fiction": 5,
+        "Comedy": 5,
+        "Romance": 5,
+        "Horror": 5,
+        "Drama": 5,
+        "Mystery": 5,
+        "Suspense": 5,
+        "Adventure": 5,
+        "Action": 5
+      },
+      "id": 260513
+    },
+    {
+      "id": 427641,
+      "rating": {
+        "Action": 2,
+        "Adventure": 4,
+        "Suspense": 6,
+        "Mystery": 4,
+        "Drama": 4,
+        "Horror": 4,
+        "Romance": 5,
+        "Comedy": 4,
+        "Science-Fiction": 6,
+        "Fantasy": 4
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 4,
+        "Science-Fiction": 4,
+        "Comedy": 10,
+        "Romance": 10,
+        "Horror": 4,
+        "Drama": 4,
+        "Mystery": 10,
+        "Suspense": 10,
+        "Adventure": 4,
+        "Action": 4
+      },
+      "id": 351286
+    },
+    {
+      "id": 351286,
+      "rating": {
+        "Action": 0,
+        "Adventure": 8,
+        "Suspense": 0,
+        "Mystery": 0,
+        "Drama": 0,
+        "Horror": 0,
+        "Romance": 0,
+        "Comedy": 0,
+        "Science-Fiction": 0,
+        "Fantasy": 0
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 5,
+        "Science-Fiction": 10,
+        "Comedy": 9,
+        "Romance": 2,
+        "Horror": 1,
+        "Drama": 2,
+        "Mystery": 0,
+        "Suspense": 1,
+        "Adventure": 8,
+        "Action": 9
+      },
+      "id": 102899
+    },
+    {
+      "id": 102899,
+      "rating": {
+        "Action": 0,
+        "Adventure": 0,
+        "Suspense": 0,
+        "Mystery": 5,
+        "Drama": 0,
+        "Horror": 0,
+        "Romance": 0,
+        "Comedy": 0,
+        "Science-Fiction": 0,
+        "Fantasy": 0
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 9,
+        "Science-Fiction": 8,
+        "Comedy": 8,
+        "Romance": 7,
+        "Horror": 7,
+        "Drama": 9,
+        "Mystery": 9,
+        "Suspense": 9,
+        "Adventure": 9,
+        "Action": 9
+      },
+      "id": 351286
+    },
+    {
+      "id": 351286,
+      "rating": {
+        "Action": 1,
+        "Adventure": 1,
+        "Suspense": 1,
+        "Mystery": 1,
+        "Drama": 1,
+        "Horror": 1,
+        "Romance": 1,
+        "Comedy": 1,
+        "Science-Fiction": 1,
+        "Fantasy": 1
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 7,
+        "Science-Fiction": 7,
+        "Comedy": 7,
+        "Romance": 7,
+        "Horror": 7,
+        "Drama": 7,
+        "Mystery": 7,
+        "Suspense": 7,
+        "Adventure": 7,
+        "Action": 7
+      },
+      "title": "Jurassic World: Fallen Kingdom",
+      "id": 351286
+    },
+    {
+      "id": 351286,
+      "title": "Jurassic World: Fallen Kingdom",
+      "rating": {
+        "Action": 7,
+        "Adventure": 7,
+        "Suspense": 8,
+        "Mystery": 7,
+        "Drama": 7,
+        "Horror": 7,
+        "Romance": 8,
+        "Comedy": 8,
+        "Science-Fiction": 7,
+        "Fantasy": 8
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 7,
+        "Science-Fiction": 9,
+        "Comedy": 7,
+        "Romance": 8,
+        "Horror": 6,
+        "Drama": 8,
+        "Mystery": 8,
+        "Suspense": 7,
+        "Adventure": 8,
+        "Action": 7
+      },
+      "title": "Ant-Man and the Wasp",
+      "id": 363088
+    },
+    {
+      "id": 442249,
+      "title": "The First Purge",
+      "rating": {
+        "Action": 5,
+        "Adventure": 5,
+        "Suspense": 5,
+        "Mystery": 5,
+        "Drama": 5,
+        "Horror": 5,
+        "Romance": 5,
+        "Comedy": 5,
+        "Science-Fiction": 5,
+        "Fantasy": 5
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 6,
+        "Science-Fiction": 7,
+        "Comedy": 6,
+        "Romance": 7,
+        "Horror": 7,
+        "Drama": 6,
+        "Mystery": 7,
+        "Suspense": 6,
+        "Adventure": 6,
+        "Action": 6
+      },
+      "title": "Truth or Dare",
+      "id": 460019
+    },
+    {
+      "id": 407451,
+      "title": "A Quiet Place",
+      "rating": {
+        "Action": 1,
+        "Adventure": 1,
+        "Suspense": 1,
+        "Mystery": 1,
+        "Drama": 1,
+        "Horror": 1,
+        "Romance": 1,
+        "Comedy": 1,
+        "Science-Fiction": 1,
+        "Fantasy": 1
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 1,
+        "Science-Fiction": 1,
+        "Comedy": 1,
+        "Romance": 1,
+        "Horror": 1,
+        "Drama": 1,
+        "Mystery": 1,
+        "Suspense": 1,
+        "Adventure": 1,
+        "Action": 1
+      },
+      "title": "A Quiet Place",
+      "id": 395990
+    },
+    {
+      "id": 447332,
+      "title": "A Quiet Place",
+      "rating": {
+        "Action": 1,
+        "Adventure": 1,
+        "Suspense": 1,
+        "Mystery": 1,
+        "Drama": 1,
+        "Horror": 1,
+        "Romance": 1,
+        "Comedy": 1,
+        "Science-Fiction": 1,
+        "Fantasy": 1
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 2,
+        "Science-Fiction": 2,
+        "Comedy": 2,
+        "Romance": 2,
+        "Horror": 2,
+        "Drama": 2,
+        "Mystery": 2,
+        "Suspense": 2,
+        "Adventure": 2,
+        "Action": 2
+      },
+      "title": "Hereditary",
+      "id": 493922
+    },
+    {
+      "id": 395990,
+      "title": "Super Troopers 2",
+      "rating": {
+        "Action": 1,
+        "Adventure": 1,
+        "Suspense": 1,
+        "Mystery": 1,
+        "Drama": 1,
+        "Horror": 1,
+        "Romance": 1,
+        "Comedy": 1,
+        "Science-Fiction": 1,
+        "Fantasy": 1
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 1,
+        "Science-Fiction": 1,
+        "Comedy": 1,
+        "Romance": 1,
+        "Horror": 1,
+        "Drama": 1,
+        "Mystery": 1,
+        "Suspense": 1,
+        "Adventure": 1,
+        "Action": 1
+      },
+      "title": "Detective Conan: Zero the Enforcer",
+      "id": 493006
+    },
+    {
+      "id": 493006,
+      "title": "Detective Conan: Zero the Enforcer",
+      "rating": {
+        "Action": 2,
+        "Adventure": 2,
+        "Suspense": 2,
+        "Mystery": 2,
+        "Drama": 2,
+        "Horror": 2,
+        "Romance": 2,
+        "Comedy": 2,
+        "Science-Fiction": 2,
+        "Fantasy": 2
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 7,
+        "Science-Fiction": 7,
+        "Comedy": 7,
+        "Romance": 7,
+        "Horror": 7,
+        "Drama": 7,
+        "Mystery": 7,
+        "Suspense": 7,
+        "Adventure": 7,
+        "Action": 7
+      },
+      "title": "Red Sparrow",
+      "id": 493006
+    },
+    {
+      "id": 460668,
+      "title": "I Feel Pretty",
+      "rating": {
+        "Action": 1,
+        "Adventure": 1,
+        "Suspense": 1,
+        "Mystery": 1,
+        "Drama": 1,
+        "Horror": 1,
+        "Romance": 1,
+        "Comedy": 1,
+        "Science-Fiction": 1,
+        "Fantasy": 1
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 6,
+        "Science-Fiction": 5,
+        "Comedy": 4,
+        "Romance": 3,
+        "Horror": 2,
+        "Drama": 1,
+        "Mystery": 1,
+        "Suspense": 1,
+        "Adventure": 1,
+        "Action": 1
+      },
+      "title": "I Feel Pretty",
+      "id": 460668
+    },
+    {
+      "id": 447200,
+      "title": "Skyscraper",
+      "rating": {
+        "Action": 1,
+        "Adventure": 2,
+        "Suspense": 3,
+        "Mystery": 4,
+        "Drama": 5,
+        "Horror": 6,
+        "Romance": 7,
+        "Comedy": 8,
+        "Science-Fiction": 9,
+        "Fantasy": 10
+      }
+    },
+    {
+      "rating": {
+        "Fantasy": 4,
+        "Science-Fiction": 6,
+        "Comedy": 8,
+        "Romance": 7,
+        "Horror": 6,
+        "Drama": 5,
+        "Mystery": 4,
+        "Suspense": 3,
+        "Adventure": 2,
+        "Action": 1
+      },
+      "title": "Hotel Transylvania 3: Summer Vacation",
+      "id": 400155
+    }
+  ]

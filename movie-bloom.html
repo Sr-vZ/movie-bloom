@@ -18,35 +18,17 @@
     .modal-dialog {
         width: 800px;
     }
+    .modal-cw{
+        width:850px
+    }
 </style>
 
 <body>
-    <div id="movies-container" class="container-fluid">
-        <!-- <div class="row">
-            <div class="col">
-                <p class="h2">h2. Bootstrap heading</p>
-                <img src="..." class="img-fluid rounded float-left" alt="Responsive image">
-            </div>
-            <div class="col">
-                <div id='chart-container'></div>
-                <p>Release Date</p>
-                <p>01/07/2018</p>
-                <p>Originally billed as:</p>
-                <p>Gernes</p>
-                <p></p>
-                <p class="h4"> SYNOPSIS</p>
-                <p>synopsis details</p>
-            </div>
-        </div> -->
 
-    </div>
-    <div class="">
-        <button type="button" class="btn btn-success float-left bloom-button" onclick="prevPage()">Previous</button>
-        <button type="button" class="btn btn-success float-right bloom-button" onclick="nextPage()">Next</button>
-    </div>
     <!-- Modal -->
-    <div class="modal fade" id="survey-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
+    <div class="modal fade" id="survey-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"
+        style="position:relative; padding:30px">
+        <div class="modal-dialog modal-lg container-fluid" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Movie Survey</h5>
@@ -82,7 +64,29 @@
         </div>
     </div>
     <!-- Modal -->
+    <div id="movies-container" class="container-fluid">
+        <!-- <div class="row">
+            <div class="col">
+                <p class="h2">h2. Bootstrap heading</p>
+                <img src="..." class="img-fluid rounded float-left" alt="Responsive image">
+            </div>
+            <div class="col">
+                <div id='chart-container'></div>
+                <p>Release Date</p>
+                <p>01/07/2018</p>
+                <p>Originally billed as:</p>
+                <p>Gernes</p>
+                <p></p>
+                <p class="h4"> SYNOPSIS</p>
+                <p>synopsis details</p>
+            </div>
+        </div> -->
 
+    </div>
+    <div class="">
+        <button type="button" class="btn btn-success float-left bloom-button" onclick="prevPage()">Previous</button>
+        <button type="button" class="btn btn-success float-right bloom-button" onclick="nextPage()">Next</button>
+    </div>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script> -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -95,6 +99,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
 
     <script>
+        // document.domain = 'movie-bloom.com'
         PageNo = 1;
         genres = [{
                 id: 28,
@@ -271,9 +276,6 @@
                                     //     ratings[j] = parseInt(ratingData[r].rating[labels[j]])
                                     // }
                                     loadChart('canvas-' + data[i].id, avg_rating[r].total_rating)
-                                } else {
-                                    // t = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-                                    // loadChart('canvas-' + data[i].id)
                                 }
                             }
 
@@ -293,9 +295,9 @@
 
         function createMoviecontainer(title, img, release_date, synopsis, genre, id) {
 
-            html = '<div class="row" style="padding: 20px">' +
-                '<p class="h2" style="padding: 20px">' + title + '</p>' +
-                '<div class="row" style="padding: 20px">' +
+            html = '<div class="row" style="padding: 15px">' +
+                '<p class="h2" style="padding: 15px">' + title + '</p>' +
+                '<div class="row" style="padding: 15px">' +
                 '<div class="col">' +
 
                 '<img src="' + img +
@@ -393,8 +395,9 @@
 
         function nextPage() {
             PageNo = PageNo + 1
+
             loadMovies(PageNo)
-            window.scrollTo(0, 0)
+            window.top.scrollTo(0, 0)
         }
 
         function prevPage() {
@@ -480,6 +483,7 @@
                 // window.location = window.location;
                 window.parent.location.reload();
                 window.parent.location = document.referrer
+                window.parent.postMessage('reloadNow', '*');
                 updatePageCharts()
 
             })
@@ -514,7 +518,7 @@
                         data: JSON.stringify(data),
                         success: (data) => {
                             console.log(data);
-                            callback
+                            callback()
                         },
                         error: (err) => {
                             console.log(err.responseJSON);
@@ -674,6 +678,7 @@
             });
             $('#survey-modal').on('show.bs.modal', function (e) {
                 var y = $('#survey-modal').data('y'); // gets the mouseY position
+                console.log('y pos: ' + y)
                 $('#survey-modal').css('top', y);
             });
 
